@@ -9,6 +9,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 // ROUTER IMPORT
+const user = require('./routes/user')
 const feed = require('./routes/feed');
 const blog = require('./routes/blog');
 const comment = require('./routes/comment');
@@ -18,6 +19,7 @@ const commentReply = require('./routes/commentsReply');
 
 
 //API 
+app.use(user)
 app.use(feed);
 app.use(blog);
 app.use(comment);
