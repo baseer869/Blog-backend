@@ -4,16 +4,28 @@ const Blog = require("../models/blog");
 const Like = require("../models/blogLike");
 const Comment = require('../models/comment');
 const CommentReply = require('../models/commentsReply');
-const multer  = require('multer')
+const multer  = require('multer');
 
 
+const FILE_TYPE_MAP ={
+  'image/png':'png',
+  'image/jpeg':'jpeg',
+  'image/jpg':'jpg'
+}
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/Users/Public')
+    const isValid = FILE_TYPE_MAP[file.mimetype]
+    let uploadError = new Error("Invalid Image type");
+    if(isValid){
+       uploadError = null
+    }
+    cb(uploadError, '/Users/Public')
   },
   filename: function (req, file, cb) {
     const fileName = file.originalname.split('').join('-'); 
-    cb(null, fileName + '-' + Date.now())
+    const extension = FILE_TYPE_MAP[file.mimetype]
+
+    cb(null,`${Date.now()}-${fileName}.${extension}`)
   }
 })
 
@@ -21,7 +33,6 @@ const storage = multer.diskStorage({
 module.exports.upload = multer({ storage: storage });
 
 module.exports.postBlog = async (req, res) => {
-
 const filename = req.file.filename
 const basePath = `${req.protocol}://${req.get('host')}/Users/Public`                  // http://localhost:3000/pulic/uploa/i2323.png
   sequelize.sync().then(async () => {
@@ -40,7 +51,8 @@ const basePath = `${req.protocol}://${req.get('host')}/Users/Public`            
         return res.status(400).send({
             message:'failed',
             code:400,
-            error
+            error,
+            
         });
     })
           
