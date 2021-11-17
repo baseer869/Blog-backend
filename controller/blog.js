@@ -1,18 +1,36 @@
 const sequelize = require("../config/db.config");
-
 // Model
 const Blog = require("../models/blog");
 const Like = require("../models/blogLike");
 const Comment = require('../models/comment');
 const CommentReply = require('../models/commentsReply');
+const multer  = require('multer')
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/Users/Public')
+  },
+  filename: function (req, file, cb) {
+    const fileName = file.originalname.split('').join('-'); 
+    cb(null, fileName + '-' + Date.now())
+  }
+})
+
+ 
+module.exports.upload = multer({ storage: storage });
 
 module.exports.postBlog = async (req, res) => {
-     
+
+const filename = req.file.filename
+const basePath = `${req.protocol}://${req.get('host')}/Users/Public`                  // http://localhost:3000/pulic/uploa/i2323.png
   sequelize.sync().then(async () => {
     await Blog.create({
       title: req.body.title,
       text: req.body.text,
+      attachement: `${basePath}${filename}`,
       status: req.body.status,
+      userId: req.body.userId
     }).then(()=>{
         return res.status(200).send({
             message:'success',
@@ -39,7 +57,8 @@ module.exports.getAllBlogs = async (req, res) => {
         }, 
         {
           model:Like,
-          as: 'likes'
+          as: 'likes',
+          attributes: ['userId']
           
         },
       ], 
@@ -87,6 +106,8 @@ module.exports.getBlog = async (req, res) => {
             blogs
         });
 };
+
+
 
 
 //

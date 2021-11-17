@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../config/db.config')
-
+const Blog = require('../models/blog');
+const Like = require('./blogLike');
+const Comment = require('./comment');
 
 const User = sequelize.define('user', {
 
@@ -42,5 +44,17 @@ const User = sequelize.define('user', {
     updatedAt: true,
     createdAt: false
 })
+
+
+
+User.hasMany(Blog, {
+    as: "blogs"
+});
+User.hasMany(Comment, {
+    as: "comments"
+});
+User.hasMany(Like , {
+    as: "likes",
+});
 
 module.exports = User;

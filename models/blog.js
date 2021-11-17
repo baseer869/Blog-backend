@@ -27,18 +27,8 @@ const Blog  = sequelize.define('Blog', {
          type: DataTypes.BLOB,
          allowNull: true
      },
-    //   user_id: {
-    //     type: DataTypes.INTEGER,
-    //     allowNull: true,
-    // }
-
-    //  foreign_id: {
-    //     type: DataTypes.INTEGER,
-    //     references: {
-    //       model: 'register_user',
-    //       key: 'id',
-    //     }
-    // }
+    
+   
      
 }, 
 {

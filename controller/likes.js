@@ -9,6 +9,8 @@ module.exports.addLikes = async (req, res) => {
       // user_id: req.body.user_id,
       BlogId: req.body.BlogId,
       status:req.body.status,
+      userId: req.body.userId,
+
     }).then(()=>{
         return res.status(200).send({
             message:'success',
