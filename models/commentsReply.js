@@ -20,6 +20,10 @@ const CommentReply  = sequelize.define('CommentReply', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
      },
+     userId:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+     },
     // userId: {
     //     type: DataTypes.INTEGER,
     //     references: {

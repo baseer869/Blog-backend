@@ -1,17 +1,17 @@
-const express = require('express');
-const router = express.Router();
-require('dotenv').config();
-const api  = process.env.API_URL;
+// const express = require('express');
+// const router = express.Router();
+// require('dotenv').config();
+// const api  = process.env.API_URL;
 
-/////////////////////////////////////////
-//         controller                  //
-/////////////////////////////////////////
+// /////////////////////////////////////////
+// //         controller                  //
+// /////////////////////////////////////////
 
-const user = require('../controller/userController');
+// const user = require('../controller/userController');
 
-router.post(`${api}/register`,  user.registerUser );
-router.post(`${api}/login`,  user.loginUser );
+// router.post(`${api}/register`,  user.registerUser );
+// router.post(`${api}/login`,  user.loginUser );
 
 
 
-module.exports = router;
+// module.exports = router;

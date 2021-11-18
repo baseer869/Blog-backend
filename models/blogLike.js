@@ -13,6 +13,10 @@ const Like  = sequelize.define('Like', {
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
+    userId:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+     },
 }, 
 {
     updatedAt: false

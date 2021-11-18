@@ -19,7 +19,10 @@ const Comment  = sequelize.define('Comment', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
      },
-    
+     userId:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+     },
     // BlogId: {
     //     type: DataTypes.INTEGER,
     //     references: {

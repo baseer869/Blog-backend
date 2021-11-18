@@ -10,7 +10,9 @@ module.exports.postComments = async (req, res) => {
             replytext: req.body.replytext,
             status: req.body.status,
             CommentId: req.body.CommentId,
-            BlogId:req.body.BlogId
+            BlogId:req.body.BlogId,
+            userId:req.body.userId
+
         }).then(() => {
             return res.status(200).send({
                 message: 'reply added...',

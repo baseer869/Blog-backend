@@ -11,8 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // ROUTER IMPORT
-const user = require('./routes/user')
-const feed = require('./routes/feed');
+// const user = require('./routes/user')
 const blog = require('./routes/blog');
 const comment = require('./routes/comment');
 const likes = require('./routes/likes');
@@ -22,8 +21,7 @@ const error = require('./helpers/error-handler');
 
 
 //API 
-app.use(user)
-app.use(feed);
+// app.use(user)
 app.use(blog);
 app.use(comment);
 app.use(commentReply)
