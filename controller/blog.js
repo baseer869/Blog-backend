@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     if(isValid){
        uploadError = null
     }
-    cb(uploadError, '/Users/Public')
+    cb(uploadError, './uploads')
   },
   filename: function (req, file, cb) {
     const fileName = file.originalname.split('').join('-'); 
@@ -34,7 +34,7 @@ module.exports.upload = multer({ storage: storage });
 
 module.exports.postBlog = async (req, res) => {
 const filename = req.file.filename
-const basePath = `${req.protocol}://${req.get('host')}/Users/Public`                  // http://localhost:3000/pulic/uploa/i2323.png
+const basePath = `${req.protocol}://${req.get('host')}/uploads/`                  // http://localhost:3000/pulic/uploa/i2323.png
   sequelize.sync().then(async () => {
     await Blog.create({
       title: req.body.title,

@@ -26,7 +26,7 @@ app.use(blog);
 app.use(comment);
 app.use(commentReply)
 app.use(likes);
-
+app.use('/uploads', express.static('uploads'))
 
 
 

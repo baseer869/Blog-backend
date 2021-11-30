@@ -1,0 +1,7 @@
+//
+
+
+// Blog table
+
+// title
+// text
