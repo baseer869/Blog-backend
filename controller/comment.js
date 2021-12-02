@@ -1,12 +1,21 @@
 const sequelize = require("../config/db.config");
+const Blog = require("../models/blog");
 
-// Model
+// Model 
 const Comments = require("../models/comment");
 
 module.exports.postComments = async (req, res) => {
 
     sequelize.sync().then(async () => {
         let comment;
+         const blog = await Blog.findOne({where: {BlogId: req.body.BlogId }})
+         if(!blog){
+             return res.send({
+                 message:"no blog found with this id.",
+                 success: true,
+                 status: 404
+             })
+         }
      comment =   await Comments.create({
             comments_text: req.body.comments_text,
             status: req.body.status,
