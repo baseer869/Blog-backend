@@ -13,5 +13,4 @@ router.post(`${api}/comments`,  comment.postComments );
 router.get(`${api}/comments/`,  comment.getBlogComments );
 router.get(`${api}/allcomments/`,  comment.getAllCommentsById );
 
-
 module.exports = router;
