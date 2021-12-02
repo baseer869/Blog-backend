@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const jwt = require('./helpers/jwt');
-
+var cors = require('cors')
 require('dotenv').config();
 
 const PORT = process.env.PORT || 300;
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 300;
 // APP LEVEL MIDDLE_WARE
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors())
 // ROUTER IMPORT
 // const user = require('./routes/user')
 const blog = require('./routes/blog');
