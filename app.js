@@ -9,7 +9,10 @@ const PORT = process.env.PORT || 300;
 // APP LEVEL MIDDLE_WARE
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+    origin: '*'
+  }))
 // ROUTER IMPORT
 // const user = require('./routes/user')
 const blog = require('./routes/blog');
