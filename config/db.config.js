@@ -1,16 +1,16 @@
 const { Sequelize } = require("sequelize");
 
 // Development env
-const sequelize = new Sequelize("greenage_services", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-});
+// const sequelize = new Sequelize("greenage_services", "root", "", {
+//   host: "localhost",
+//   dialect: "mysql",
+// });
 
 // Production env
-// const sequelize = new Sequelize("greenage_db", "greenage_greenage", "Greenage@2020!!", {
-//     host: "localhost",
-//     dialect: "mysql",
-//   });
+const sequelize = new Sequelize("greenage_db", "greenage_greenage", "Greenage@2020!!", {
+    host: "localhost",
+    dialect: "mysql",
+  });
 
 sequelize
   .authenticate()
