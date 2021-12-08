@@ -15,6 +15,8 @@ const blog = require('../controller/blog');
 router.post(`${api}/blog`, blog.upload.single('attachement'), blog.postBlog );
 router.get(`${api}/blogs/:id`,  blog.getBlog );
 router.get(`${api}/blog`,  blog.getAllBlogs );
+router.put(`${api}/blog`,  blog.updateStatus );
+
 
 
 module.exports = router;

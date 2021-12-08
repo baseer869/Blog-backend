@@ -8,7 +8,7 @@ module.exports.postComments = async (req, res) => {
 
     sequelize.sync().then(async () => {
         let comment;
-         const blog = await Comments.findOne({where: {BlogId: req.body.BlogId }})
+         const blog = await Blog.findOne({ where: { id: req.query.BlogId } })
          if(!blog){
              return res.send({
                  message:"no blog found with this id.",
@@ -45,7 +45,7 @@ module.exports.getBlogComments = async (req, res, next ) => {
 
     sequelize.sync().then(async () => {
 
-            var comments = await Comments.findOne({ where: { BlogId: req.query.id } });
+            var comments = await Blog.findOne({ where: { id: req.query.BlogId } });
 
        
         if (!comments) {

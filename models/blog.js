@@ -24,7 +24,7 @@ const Blog  = sequelize.define('Blog', {
         allowNull: false
      },
      status:{
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
         allowNull: false,
      },
      attachement:{
