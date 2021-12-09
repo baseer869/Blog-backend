@@ -6,7 +6,6 @@ const Comment = require('../models/comment');
 const CommentReply = require('../models/commentsReply');
 const multer = require('multer');
 
-
 const FILE_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpeg',
@@ -64,25 +63,24 @@ module.exports.postBlog = async (req, res) => {
 
 //GET ALL BLOGS 
 
-const getPagination = (page, size) => {
-  const limit = size ? +size : 10;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
 
 module.exports.getAllBlogs = async (req, res) => {
   let blogs;
   const page = req.query.page;
-
+  function getPagination(page, size){
+    const limit = 10;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+  };
   const { limit, offset } = getPagination(page)
-  const condition = { status: req.body.status === '1' || '0' }
+ 
   try {
-    blogs = await Blog.findAndCountAll({
+    blogs = await Blog.findAndCountAll(  {
       limit: limit, offset: offset, include: [
         {
           model: Comment,
-          as: 'comments'
+          as: 'comments',
         },
         {
           model: Like,
@@ -91,7 +89,9 @@ module.exports.getAllBlogs = async (req, res) => {
 
         },
       ],
-      where: condition
+      where:  { status: req.body.status === '1' || '0' },
+      attributes: { exclude: ['text'] } , 
+      
     })
   } catch (error) {
     return res.status(400).send({
@@ -112,6 +112,26 @@ module.exports.getAllBlogs = async (req, res) => {
     message: 'success',
     status: 200,
     blogs
+  });
+};
+
+// GET TEXT BY ID 
+module.exports.getBlogText = async (req, res) => {
+
+  sequelize.sync().then(async () => {
+    const isblog = await Blog.findOne({ attributes:['text'], where: { id: req.query.id, } });
+    if (!isblog) {
+      return res.status(400).send({
+        message: 'No blog found',
+        status: 400, 
+      });
+    }
+      return res.status(200).send({
+        status: 200,
+        error: false,
+        text: isblog
+      });
+    
   });
 };
 
@@ -166,9 +186,5 @@ module.exports.getBlog = async (req, res) => {
   });
 };
 
-
-
-
-//
 
 
