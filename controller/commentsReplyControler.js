@@ -10,8 +10,8 @@ module.exports.postComments = async (req, res) => {
             replytext: req.body.replytext,
             status: req.body.status,
             CommentId: req.body.CommentId,
-            BlogId:req.body.BlogId,
-            userId:req.body.userId
+            BlogId: req.body.BlogId,
+            userId: req.body.userId
 
         }).then(() => {
             return res.status(200).send({
@@ -34,11 +34,11 @@ module.exports.postComments = async (req, res) => {
 //Get reply of comments
 
 
-module.exports.getCommentReply = async (req, res, next ) => {
+module.exports.getCommentReply = async (req, res, next) => {
 
     sequelize.sync().then(async () => {
 
-            var reply = await CommentsReply.findOne({ where: { CommentId: req.query.id } });
+        var reply = await CommentsReply.findOne({ where: { CommentId: req.query.id } });
 
         if (!reply) {
             return res.status(400).send({
