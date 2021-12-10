@@ -51,7 +51,6 @@ module.exports.postBlog = async (req, res) => {
         message: 'failed',
         code: 400,
         error,
-
       });
     })
 
@@ -67,16 +66,16 @@ module.exports.postBlog = async (req, res) => {
 module.exports.getAllBlogs = async (req, res) => {
   let blogs;
   const page = req.query.page;
-  function getPagination(page, size){
+  function getPagination(page, size) {
     const limit = 10;
     const offset = page ? page * limit : 0;
-  
+
     return { limit, offset };
   };
   const { limit, offset } = getPagination(page)
- 
+
   try {
-    blogs = await Blog.findAndCountAll(  {
+    blogs = await Blog.findAndCountAll({
       limit: limit, offset: offset, include: [
         {
           model: Comment,
@@ -89,9 +88,9 @@ module.exports.getAllBlogs = async (req, res) => {
 
         },
       ],
-      where:  { status: req.body.status === '1' || '0' },
-      attributes: { exclude: ['text'] } , 
-      
+      where: { status: req.body.status === '1' || '0' },
+      attributes: { exclude: ['text'] },
+
     })
   } catch (error) {
     return res.status(400).send({
@@ -119,19 +118,19 @@ module.exports.getAllBlogs = async (req, res) => {
 module.exports.getBlogText = async (req, res) => {
 
   sequelize.sync().then(async () => {
-    const isblog = await Blog.findOne({ attributes:['text'], where: { id: req.query.id, } });
+    const isblog = await Blog.findOne({ attributes: ['text'], where: { id: req.query.id, } });
     if (!isblog) {
       return res.status(400).send({
         message: 'No blog found',
-        status: 400, 
+        status: 400,
       });
     }
-      return res.status(200).send({
-        status: 200,
-        error: false,
-        text: isblog
-      });
-    
+    return res.status(200).send({
+      status: 200,
+      error: false,
+      text: isblog
+    });
+
   });
 };
 
