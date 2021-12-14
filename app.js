@@ -46,7 +46,6 @@ app.listen(PORT, () => {
 require('./config/db.config');
 
 
-
-// https://stackoverflow.com/questions/19075805/sequelize-associations-hasone-belongsto
-// https://medium.com/@andrewoons/how-to-define-sequelize-associations-using-migrations-de4333bf75a7
-// https://medium.com/@eth3rnit3/sequelize-relationships-ultimate-guide-f26801a75554
+// https://www.tatvasoft.com/blog/node-js-best-practices/
+// https://www.perfomatix.com/nodejs-coding-standards-and-best-practices-node-js-development-company/
+// https://www.codementor.io/@mattgoldspink/nodejs-best-practices-du1086jja
