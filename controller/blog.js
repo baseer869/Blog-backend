@@ -29,15 +29,39 @@ const storage = multer.diskStorage({
 })
 
 
+// blog headings data 
+const dummy = [
+  {
+    id: 1,
+    heading: "dasdasdasdadsadasda",
+    text: " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not ",
+    createdAt: "2021-12-15T22:39:47.000Z",
+    BlogId: 12
+  },
+  {
+    id: 2,
+    heading: "dasdasdasdadsadasda",
+    text: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not ",
+    createdAt: "2021-12-15T22:55:05.000Z",
+    BlogId: 12
+  }
+]
+
+var text = JSON.stringify(dummy);
+
 module.exports.upload = multer({ storage: storage });
 
 module.exports.postBlog = async (req, res) => {
   const filename = req.file.filename
+   res.send(text);
+
+  // const text = JSON.stringify(req.body.text)
+  console.log('text-->', text)
   const basePath = `https://www.greenageservices.pk/blogs/uploads/`;
   sequelize.sync().then(async () => {
     await Blog.create({
       title: req.body.title,
-      text: req.body.text,
+      text: text,
       attachement: `${basePath}${filename}`,
       status: req.body.status,
       userId: req.body.userId
@@ -77,18 +101,19 @@ module.exports.getAllBlogs = async (req, res) => {
   try {
     blogs = await Blog.findAndCountAll({
       limit: limit, offset: offset, include: [
+        
         {
           model: Comment,
           as: 'comments',
+
         },
         {
           model: Like,
           as: 'likes',
           attributes: ['userId']
-
         },
       ],
-      where: { status: req.body.status === '1' || '0' },
+      where: { status: req.query.status === '1' || '0' },
       attributes: { exclude: ['text'] },
 
     })

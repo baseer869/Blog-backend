@@ -3,6 +3,7 @@ const sequelize = require('../config/db.config');
 const Like = require('./blogLike');
 const Comment = require('./comment');
 const CommentReply = require('./commentsReply');
+const Heading = require('./heading');
 
 const Blog  = sequelize.define('Blog', {
     id:{
@@ -30,9 +31,7 @@ const Blog  = sequelize.define('Blog', {
      attachement:{
          type: DataTypes.STRING,
          allowNull: true
-     },
-    
-   
+     },   
      
 }, 
 {
@@ -60,16 +59,8 @@ CommentReply.belongsTo(Comment,{
 } 
 )
 
-Blog.hasMany(CommentReply, {as:"CommentReply" })
-CommentReply.belongsTo(Blog,{
-    foreignKey:'BlogId',
+Blog.hasMany(Heading, {as:"Heading" })
+Heading.belongsTo(Blog,{
     as:'Blog'
 });
-
-
 module.exports = Blog
-
-// https://www.bezkoder.com/sequelize-associate-one-to-many/
-// https://sequelize.org/master/manual/assocs.html
-// https://sequelize.org/master/manual/eager-loading.html
-// https://infinitbility.com/node.js-sequelize-query-examples
